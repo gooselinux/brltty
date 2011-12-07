@@ -1,0 +1,24 @@
+2009-05-06  Stepan Kasal  <skasal@redhat.com>
+
+	* Bindings/Java/Makefile.in: Propagate configure-time CPPFLAGS.
+
+--- brltty-3.10/Bindings/Java/Makefile.in.cppflags	2008-07-17 00:19:45.000000000 +0200
++++ brltty-3.10/Bindings/Java/Makefile.in	2009-05-06 17:33:02.000000000 +0200
+@@ -36,6 +36,8 @@
+ JAVA_JNI_FLAGS = @JAVA_JNI_FLAGS@
+ JAVA_JNI_DESTDIR = $(INSTALL_ROOT)
+ 
++CPPFLAGS = @CPPFLAGS@
++
+ all: jar jni doc
+ 
+ JAVA_SOURCES = $(SRC_DIR)/Brlapi.java \
+@@ -56,7 +58,7 @@
+ 	$(MKLIB:<name>=$(API_NAME)) $@ bindings.$O $(API_LDFLAGS)
+ 
+ bindings.$O:
+-	$(CC) $(LIBCFLAGS) $(JAVA_JNI_FLAGS) -o $@ -c $(SRC_DIR)/bindings.c
++	$(CC) $(CPPFLAGS) $(LIBCFLAGS) $(JAVA_JNI_FLAGS) -o $@ -c $(SRC_DIR)/bindings.c
+ 
+ JAVA_JAR_FILE = $(API_NAME).jar
+ jar: $(JAVA_JAR_FILE)

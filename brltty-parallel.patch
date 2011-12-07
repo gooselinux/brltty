@@ -1,0 +1,18 @@
+2008-09-17  Stepan Kasal  <skasal@redhat.com>
+
+	* Programs/Makefile.in (braille-drivers): Add
+	prerequisity `all' to prevent race of this make with nested
+	"make brlapi" when parallel make is used.  Recursive make is
+	harmful.
+
+--- brltty-4.0/Programs/Makefile.in.parallel	2009-10-07 20:48:57.000000000 +0200
++++ brltty-4.0/Programs/Makefile.in	2009-10-07 20:50:03.000000000 +0200
+@@ -428,7 +428,7 @@
+ 
+ ###############################################################################
+ 
+-braille-drivers: txt2hlp$X
++braille-drivers: txt2hlp$X api
+ 	for driver in $(BRAILLE_EXTERNAL_DRIVER_NAMES); \
+ 	do (cd $(BLD_TOP)$(BRL_DIR)/$$driver && $(MAKE) braille-driver braille-all) || exit 1; \
+ 	done
